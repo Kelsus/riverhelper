@@ -1,20 +1,20 @@
+from __future__ import print_function
 import urllib.request
 import re
 
 
 def getGlenwoodWaveFlow():
-	river_page = urllib.request.urlopen('https://waterdata.usgs.gov/co/nwis/uv?site_no=09085100')
-	river_regex = r"(Most recent instantaneous value: )(\w*)"
-	search_results = re.search(river_regex, str(river_page.read()))
+    river_page = urllib.request.urlopen('https://waterdata.usgs.gov/co/nwis/uv?site_no=09085100')
+    river_regex = r"(Most recent instantaneous value: )(\w*)"
+    search_results = re.search(river_regex, str(river_page.read()))
 
 
-	session_attributes = {}
+    session_attributes = {}
     card_title = "Flows"
     speech_output = "The current flow at the Glenwood Wave is " + search_results.group(2) + " cfs."
     # If the user either does not reply to the welcome message or says something
     # that is not understood, they will be prompted again with this text.
-    reprompt_text = "Please tell me your favorite color by saying, " \
-                    "my favorite color is red."
+    reprompt_text = "I said that the current flow at the Glenwood Wave is " + search_results.group(2) + " cfs."
     should_end_session = True
     return build_response(session_attributes, build_speechlet_response(
         card_title, speech_output, reprompt_text, should_end_session))
@@ -30,7 +30,6 @@ For additional samples, visit the Alexa Skills Kit Getting Started guide at
 http://amzn.to/1LGWsLG
 """
 
-from __future__ import print_function
 
 
 # --------------- Helpers that build all of the responses ----------------------
@@ -98,7 +97,9 @@ def on_intent(intent_request, session):
     intent_name = intent_request['intent']['name']
 
     # Dispatch to your skill's intent handlers
-    if intent_name == "AMAZON.HelpIntent":
+    if intent_name == "flow":
+        return getGlenwoodWaveFlow()
+    elif intent_name == "AMAZON.HelpIntent":
         return get_welcome_response()
     elif intent_name == "AMAZON.CancelIntent" or intent_name == "AMAZON.StopIntent":
         return handle_session_end_request()
