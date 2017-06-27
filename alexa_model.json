@@ -1,0 +1,51 @@
+{
+  "intents": [
+    {
+      "name": "AMAZON.CancelIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.HelpIntent",
+      "samples": []
+    },
+    {
+      "name": "AMAZON.StopIntent",
+      "samples": []
+    },
+    {
+      "name": "flow",
+      "samples": [
+        "what is the current flow at {location}",
+        "what is the flow at {location}",
+        "what is the {location} flow",
+        "what is the flow on the wave at {location}",
+        "what is the river flow on the {location}",
+        "what is the flow on the {location}",
+        "what are the flows on the {location}",
+        "what is the flow at the wave at {location}",
+        "what is the flow at the {location}"
+      ],
+      "slots": [
+        {
+          "name": "location",
+          "type": "USGS_Name",
+          "samples": []
+        }
+      ]
+    }
+  ],
+  "types": [
+    {
+      "name": "USGS_Name",
+      "values": [
+        {
+          "id": null,
+          "name": {
+            "value": "Value 1",
+            "synonyms": []
+          }
+        }
+      ]
+    }
+  ]
+}
